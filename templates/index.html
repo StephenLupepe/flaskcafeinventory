@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Cafe Inventory</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Cafe Inventory</h1>
+    {% if items|length < 1 %}
+    <h4 class="noitems">There are no items. Add some below.</h4>
+    {% else %}
+    <div>
+        <form action="/filter" method="POST">
+            <label for="search">Search Items: </label>
+            <input type="text" name="search" class="search_input">
+            <br>
+            <label for="search_type">Type: </label>
+            <select name="search_type">
+                <option value="All">All Items</option>
+                <option value="AV">AV Equipment</option>
+                <option value="Periph">Computer Peripheral</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+            </select>   
+            <input type="submit" value="Filter Items">   
+        </form>
+    </div id="main-content">
+        <div id="table-wrapper">
+            <table>
+                    <tr>
+                        <th>Item</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for item in items %}
+                    <tr>
+                        <td>{{ item.content }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.date_created.date() }}</td>
+                        <td>
+                            <a href="/delete/{{ item.id }}">Delete </a>
+                            <br>
+                            <a href="/update/{{ item.id }}">Update </a>
+                        </td>
+                    </tr>
+                    {%  endfor %}
+            </table>
+    {% endif%}
+        </div>
+
+    <form action="/" method="POST">
+        <label for="content">Item: </label>
+        <input type="text" name="content", label="Item" class="text_input">
+        <br>
+        <label for="item_type">Type: </label>
+        <select name="item_type" id="item_type">
+            <option value="AV Equipment">AV Equipment</option>
+            <option value="Computer Peripheral">Computer Peripheral</option>
+            <option value="Books">Books</option>
+            <option value="Other">Other</option>
+        </select>        
+        <br>
+        <label for="item_desc">Description: </label>
+        <textarea name="item_desc" rows="5" cols="30" placeholder="Item description"></textarea>
+        <br>
+        <input type="submit" value="Add Item">
+    </form>
+
+</div>
+{% endblock %}

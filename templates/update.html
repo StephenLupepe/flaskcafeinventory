@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Cafe Inventory</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Update Item</h1>
+
+    <div class="form">
+        <form action="/update/{{item.id}}" method="POST">
+            <label for="content">Item: </label>
+            <input type="text" name="content" label="Item" class="input_item" value="{{item.content}}">
+            <br>
+            <label for="item_type">Type: </label>
+            <select name="item_type" id="item_type" value="{{item.type}}">
+                <option value="AV Equipment">AV Equipment</option>
+                <option value="Computer Peripheral">Computer Peripheral</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+            </select>        
+            <br>
+            <label for="item_desc">Description: </label>
+            <textarea name="item_desc" rows="5" cols="30">{{item.description}}</textarea>
+            <br>
+            <input type="submit" value="Update Item">
+    
+        </form>
+    </div>
+
+</div>
+{% endblock %}
